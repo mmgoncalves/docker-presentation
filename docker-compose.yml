@@ -1,0 +1,35 @@
+version: "2"
+services:
+  frontend:
+    tty: true
+    image: nginx
+    ports:
+      - 80:80
+    links:
+      - backend
+    mem_limit: 100000000
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    command: nginx -g "daemon off;"
+
+  backend:
+    tty: true
+    build: ./backend
+    ports:
+      - 3000:3000
+    links:
+      - database
+    mem_limit: 100000000
+    volumes:
+      - ./backend:/api
+    command: npm install
+    command: node /api/index.js
+
+  database:
+    tty: true
+    image: mysql:5.6.34
+    ports: 
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=ecommerce
