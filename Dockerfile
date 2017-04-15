@@ -8,4 +8,4 @@ RUN apt-get install -y php php-common php-cli
 
 ADD ./meus_arquivos.tar.gz /tmp
 
-COPY ~/.ssh ~/
+COPY ./meus_arquivos.tar.gz /root
